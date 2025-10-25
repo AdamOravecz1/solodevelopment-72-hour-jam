@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://be6epu4ykfpn6"]
+[gd_scene load_steps=9 format=3 uid="uid://be6epu4ykfpn6"]
 
+[ext_resource type="Script" uid="uid://b3m85cfbolcvd" path="res://Scenes/ship.gd" id="1_4qyt1"]
 [ext_resource type="Texture2D" uid="uid://csm2f8c62s0ph" path="res://Sprites/Ship.png" id="1_78pfh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qyt1"]
@@ -39,7 +40,14 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="Curve2D" id="Curve2D_4qyt1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 132, 0, 0, 0, 0, 0, -132, -1)
+}
+point_count = 2
+
 [node name="Ship" type="CharacterBody2D"]
+script = ExtResource("1_4qyt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
@@ -47,9 +55,22 @@ shape = SubResource("RectangleShape2D_4qyt1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cmder")
-animation = &"sail"
-autoplay = "sail"
-frame_progress = 0.795471
+autoplay = "default"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -63)
 zoom = Vector2(3, 3)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0, 45)
+curve = SubResource("Curve2D_4qyt1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(132, 0)
+rotation = -3.1378
+
+[node name="FishTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]

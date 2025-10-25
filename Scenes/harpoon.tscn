@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://oe5uvem2xy36"]
+
+[ext_resource type="Texture2D" uid="uid://cxxt7djqjr4ln" path="res://Sprites/Harpoon.png" id="1_ank2v"]
+[ext_resource type="Script" uid="uid://d3rnowj58y1cb" path="res://Scenes/harpoon.gd" id="1_hdtqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdtqa"]
+size = Vector2(27, 3)
+
+[node name="Harpoon" type="Area2D"]
+script = ExtResource("1_hdtqa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_hdtqa")
+
+[node name="Harpoon" type="Sprite2D" parent="."]
+texture = ExtResource("1_ank2v")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
