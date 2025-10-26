@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://be6epu4ykfpn6"]
+[gd_scene load_steps=11 format=3 uid="uid://be6epu4ykfpn6"]
 
 [ext_resource type="Script" uid="uid://b3m85cfbolcvd" path="res://Scenes/ship.gd" id="1_4qyt1"]
 [ext_resource type="Texture2D" uid="uid://csm2f8c62s0ph" path="res://Sprites/Ship.png" id="1_78pfh"]
 [ext_resource type="Texture2D" uid="uid://biojekesilhc8" path="res://Sprites/FullHeart.png" id="3_xxxu3"]
+[ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="4_6ejuo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qyt1"]
 size = Vector2(28, 25)
@@ -108,6 +109,16 @@ texture = ExtResource("3_xxxu3")
 position = Vector2(192, 32)
 scale = Vector2(2, 2)
 texture = ExtResource("3_xxxu3")
+
+[node name="Points" type="Label" parent="CanvasLayer"]
+offset_left = 18.0
+offset_top = 59.0
+offset_right = 74.0
+offset_bottom = 91.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 32
+text = "00"
 
 [connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]
 [connection signal="timeout" from="SharkTimer" to="." method="_on_shark_timer_timeout"]

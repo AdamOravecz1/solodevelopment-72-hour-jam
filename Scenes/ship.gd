@@ -12,12 +12,15 @@ var dash_timer: float = 0.0
 var dash_cooldown_timer: float = 0.0
 
 var can_move := true
+var can_fire := true
 
 @export var shoot_cooldown: float = 0.3
 var shoot_timer: float = 0.0
 
+var points := 0
+
 var fishes := {
-	"fish": [],
+	"fish": [2, 2, 2, 2],
 	"shark": [],
 	"wheal": [],
 	"tentacle": []
@@ -48,7 +51,7 @@ func die() -> void:
 
 func _physics_process(delta: float) -> void:
 	shoot_timer -= delta
-	if Input.is_action_just_pressed("shoot") and shoot_timer <= 0.0:
+	if Input.is_action_just_pressed("shoot") and shoot_timer <= 0.0 and can_fire:
 		shoot_timer = shoot_cooldown
 		shoot_harpoon()
 		
@@ -174,4 +177,8 @@ func _on_tentacle_timer_timeout() -> void:
 		$TentacleTimer.start(randf_range(2.0, 3.0))
 		
 		fishes["tentacle"].erase(fish)
+		
+func update_points(point):
+	points += point
+	$CanvasLayer/Points.text = str(points)
 		

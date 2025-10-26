@@ -1,0 +1,122 @@
+[gd_scene load_steps=4 format=3 uid="uid://lbp4e243puud"]
+
+[ext_resource type="Script" uid="uid://b4yoru53imm73" path="res://Scenes/shop.gd" id="1_a0mxf"]
+[ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="2_2shtd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2shtd"]
+size = Vector2(86, 97)
+
+[node name="Shop" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_a0mxf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(43, -48.5)
+shape = SubResource("RectangleShape2D_2shtd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -332.0
+offset_top = -108.0
+offset_right = -8.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FireRate" type="Button" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "Fire Rate"
+
+[node name="FireRange" type="Button" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "Fire Range"
+
+[node name="Health" type="Button" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "Health"
+
+[node name="MaxSpeed" type="Button" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "MaxSpeed"
+
+[node name="Accelaration" type="Button" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "Accelaration"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -85.0
+offset_right = 294.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 11
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "lvl:1 cost:1"
+
+[node name="Label2" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "lvl:1 cost:1"
+
+[node name="Label3" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "lvl:1 cost:1"
+
+[node name="Label4" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "lvl:1 cost:1"
+
+[node name="Label5" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "lvl:1 cost:1"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/FireRate" to="." method="_on_fire_rate_pressed"]
+[connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/FireRange" to="." method="_on_fire_range_pressed"]
+[connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/Health" to="." method="_on_health_pressed"]
+[connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/MaxSpeed" to="." method="_on_max_speed_pressed"]
+[connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/Accelaration" to="." method="_on_accelaration_pressed"]

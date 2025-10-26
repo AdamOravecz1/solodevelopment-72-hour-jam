@@ -56,6 +56,7 @@ func hit(damage, dir):
 	health -= damage
 	velocity += dir * 0.5
 	if health <= 0:
+		get_tree().get_first_node_in_group("Ship").update_points(4)
 		queue_free()
 
 

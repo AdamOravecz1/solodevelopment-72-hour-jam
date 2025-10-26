@@ -62,9 +62,10 @@ script = ExtResource("1_bamsg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_est5g")
-frame_progress = 0.908963
+frame_progress = 0.329398
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, -545)
 shape = SubResource("RectangleShape2D_u6f7d")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -97,6 +98,32 @@ one_shot = true
 [node name="Attack3" type="Timer" parent="."]
 one_shot = true
 
+[node name="It" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_b1yg8")
+hframes = 3
+vframes = 3
+frame = 4
+
+[node name="It2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_b1yg8")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="It3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_b1yg8")
+hframes = 3
+vframes = 3
+frame = 6
+
+[node name="Stagger" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="Attack1" to="." method="_on_attack_1_timeout"]
 [connection signal="timeout" from="Attack2" to="." method="_on_attack_2_timeout"]
 [connection signal="timeout" from="Attack3" to="." method="_on_attack_3_timeout"]
+[connection signal="timeout" from="Stagger" to="." method="_on_stagger_timeout"]

@@ -58,9 +58,43 @@ func _on_attack_3_timeout() -> void:
 func execute_random_attack() -> void:
 	var roll = randf() * 100.0  # 0–100 random value
 	
-	if roll < 45.0:
+	if roll < 40.0:
 		$Attack1.start()
-	elif roll < 90.0:
+	elif roll < 80.0:
 		$Attack2.start()
-	else:
+	elif roll < 90.0:
 		$Attack3.start()
+	else:
+		stagger()
+		
+func stagger():
+	$AnimatedSprite2D.visible = false
+	var roll = randi_range(0, 2)
+	print(roll)
+	if roll == 0:
+		$It.visible = true
+		$CollisionShape2D.position = Vector2(-3, 14)
+	elif roll == 1:
+		$It2.visible = true
+		$CollisionShape2D.position = Vector2(-8, 89)
+	else:
+		$It3.visible = true
+		$CollisionShape2D.position = Vector2(-5, 58)
+		
+
+func hit(damage, dir):
+	health -= damage
+	stagger_off()
+	if health <= 0:
+		queue_free()
+
+func _on_stagger_timeout() -> void:
+	stagger_off()
+
+func stagger_off():
+	$CollisionShape2D.position = Vector2(-3, -1000)
+	$It.visible = false
+	$It2.visible = false
+	$It3.visible = false
+	$AnimatedSprite2D.visible = true
+	execute_random_attack()

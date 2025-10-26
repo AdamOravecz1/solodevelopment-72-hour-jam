@@ -70,7 +70,7 @@ var pan_duration := 3.0       # seconds
 var pan_speed := 50.0         # pixels per second
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("debug"):
 		$Entity/Ship.can_move = false
 		$Entity/Ship/Camera2D.enabled = false
 		$BossCamera.position = Vector2($Entity/Ship.global_position.x, -53)

@@ -39,7 +39,7 @@ shape = SubResource("RectangleShape2D_fk5te")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5lneq")
 autoplay = "default"
-frame_progress = 0.0790007
+frame_progress = 0.0945301
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 4.0
