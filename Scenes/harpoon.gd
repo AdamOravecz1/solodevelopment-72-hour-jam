@@ -2,14 +2,13 @@ extends Area2D
 
 var damage: int = 1
 
-@export var speed: float = 200.0
 @export var gravity_force: float = 200.0  
 
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
 
-func setup(pos: Vector2, dir: Vector2):
+func setup(pos: Vector2, dir: Vector2, speed):
 	global_position = pos
 	direction = dir.normalized()
 

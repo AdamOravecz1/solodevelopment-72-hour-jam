@@ -5,20 +5,37 @@ var health := 10
 var speed := 30
 var start = true
 
-func setup(pos):
+var up = true
+var down = false
 
+func setup(pos):
 	position = pos
 	
 func _physics_process(delta: float) -> void:
-	if position.y >= -75:
-		position.y -= delta * speed
-	else:
-		$AnimatedSprite2D.play("default")
-		get_parent().get_parent().stop_camera_shake()
-		get_tree().get_first_node_in_group("Ship").can_move = true
-		if start:
-			$Attack1.start()
-			start = false
+	# --- Going up ---
+	if up:
+		if position.y > -75:
+			position.y -= delta * speed
+		else:
+			up = false
+			
+			$AnimatedSprite2D.play("default")
+			get_parent().get_parent().stop_camera_shake()
+			get_tree().get_first_node_in_group("Ship").can_move = true
+			if start:
+				$Attack1.start()
+				start = false
+
+	# --- Going down ---
+	elif down:
+		if position.y < 125:  # move back down until water level (y = 0)
+			position.y += delta * speed
+		else:
+			down = false  # stop moving once it’s back down
+			get_parent().get_parent().stop_camera_shake()
+			get_tree().get_first_node_in_group("Ship").victory()
+			
+
 
 
 func _on_attack_1_timeout() -> void:
@@ -27,9 +44,12 @@ func _on_attack_1_timeout() -> void:
 	var speed: float = 200.0         # bullet speed
 	var base_dir: Vector2 = Vector2.LEFT.rotated(deg_to_rad(60))
 
+	# One shared random offset for the whole attack (±5°)
+	var random_offset: float = randf_range(-5.0, 5.0)
+
 	for i in range(num_bullets):
 		var t: float = float(i) / float(num_bullets - 1)      # 0..1
-		var angle_offset: float = lerp(-spread, spread, t)    # spread from -20° to +20°
+		var angle_offset: float = lerp(-spread, spread, t) + random_offset
 		var dir: Vector2 = base_dir.rotated(deg_to_rad(angle_offset))
 		get_parent().get_parent().create_bullets($Hand.global_position, dir, speed)
 		
@@ -56,37 +76,47 @@ func _on_attack_3_timeout() -> void:
 	execute_random_attack()
 	
 func execute_random_attack() -> void:
-	var roll = randf() * 100.0  # 0–100 random value
-	
+	var roll = randf() * 100.0
+	print("Roll:", roll)
+
 	if roll < 40.0:
+		print("Attack1")
 		$Attack1.start()
 	elif roll < 80.0:
+		print("Attack2")
 		$Attack2.start()
 	elif roll < 90.0:
+		print("Attack3")
 		$Attack3.start()
 	else:
+		print("Stagger")
 		stagger()
+
 		
 func stagger():
-	$AnimatedSprite2D.visible = false
-	var roll = randi_range(0, 2)
-	print(roll)
-	if roll == 0:
-		$It.visible = true
-		$CollisionShape2D.position = Vector2(-3, 14)
-	elif roll == 1:
-		$It2.visible = true
-		$CollisionShape2D.position = Vector2(-8, 89)
-	else:
-		$It3.visible = true
-		$CollisionShape2D.position = Vector2(-5, 58)
+	if get_tree().get_first_node_in_group("Ship").dead == false:
+		$AnimatedSprite2D.visible = false
+		var roll = randi_range(0, 2)
+		if roll == 0:
+			$It.visible = true
+			$CollisionShape2D.position = Vector2(-3, 14)
+		elif roll == 1:
+			$It2.visible = true
+			$CollisionShape2D.position = Vector2(-8, 89)
+		else:
+			$It3.visible = true
+			$CollisionShape2D.position = Vector2(-5, 58)
 		
 
 func hit(damage, dir):
 	health -= damage
-	stagger_off()
+	if health > 0:
+		stagger_off()
 	if health <= 0:
-		queue_free()
+		down = true
+		get_tree().get_first_node_in_group("Ship").fishes["tentacle"] = []
+		get_parent().get_parent().rid_tentacle()
+		get_parent().get_parent().start_camera_shake()
 
 func _on_stagger_timeout() -> void:
 	stagger_off()
@@ -98,3 +128,5 @@ func stagger_off():
 	$It3.visible = false
 	$AnimatedSprite2D.visible = true
 	execute_random_attack()
+
+		

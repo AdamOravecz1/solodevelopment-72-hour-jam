@@ -52,7 +52,6 @@ func _physics_process(delta: float) -> void:
 	rotation = velocity.angle() + deg_to_rad(180)
 	
 func hit(damage, dir):
-	$CollisionShape2D.queue_free()
 	health -= damage
 	velocity += dir * 0.5
 	if health <= 0:

@@ -5,7 +5,6 @@ var health := 4
 var speed := 20
 var side := 0
 
-
 func setup(pos, dir, heal):
 	if dir == -1:
 		side = dir
@@ -20,11 +19,11 @@ func _physics_process(delta: float) -> void:
 
 func hit(damage, velocity):
 	if position.y <= 0:
+		$CollisionShape2D.queue_free()
 		health -= damage
 		if health <= 0:
 			queue_free()
 			get_tree().get_first_node_in_group("Ship").update_points(8)
-		$CollisionShape2D.queue_free()
 		$AnimatedSprite2D.play("attack")
 		
 
@@ -50,5 +49,13 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 	if health > 1:
 		get_tree().get_first_node_in_group("Ship").fishes["tentacle"].append(health)
+	else:
+		get_tree().get_first_node_in_group("Ship").update_points(8)
 	queue_free()
 	
+func _on_body_entered(body: Node2D) -> void:
+
+	if "take_damage" in body:
+		$AnimatedSprite2D.play("attack")
+		$CollisionShape2D.queue_free()
+		body.take_damage(1)

@@ -9,10 +9,10 @@ const tentacle_scene := preload("res://Scenes/tentacle.tscn")
 const it_scene := preload("res://Scenes/it.tscn")
 const warning_texture: Texture2D = preload("res://Sprites/Danger.png")
 
-func create_harpoon(pos, dir):
+func create_harpoon(pos, dir, speed):
 	var harpoon = harpoon_scene.instantiate()
 	$Projectiles.add_child(harpoon)
-	harpoon.setup(pos, dir)
+	harpoon.setup(pos, dir, speed)
 
 func create_fish(pos, dir, health):
 	var fish = fish_scene.instantiate()
@@ -69,11 +69,14 @@ var pan_time := 0.0
 var pan_duration := 3.0       # seconds
 var pan_speed := 50.0         # pixels per second
 
+var here = false
+
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug"):
+	if here:
+		here = false
 		$Entity/Ship.can_move = false
 		$Entity/Ship/Camera2D.enabled = false
-		$BossCamera.position = Vector2($Entity/Ship.global_position.x, -53)
+		$BossCamera.position = Vector2($Entity/Ship.global_position.x, -51)
 		$BossCamera.enabled = true
 
 		# Start panning
@@ -116,3 +119,10 @@ func start_camera_shake(magnitude := 2.0) -> void:
 func stop_camera_shake() -> void:
 	shaking = false
 	$BossCamera.position = original_position
+	
+func rid_tentacle():
+	for i in $Entity.get_children():
+		print(i.name)
+		if i.name != "Ship" and i.name != "IT":
+			print("removed: ", i.name)
+			i.queue_free()

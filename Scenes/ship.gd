@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var max_speed: float = 100.0
-@export var acceleration: float = 200.0
+@export var max_speed: float = 50.0
+@export var acceleration: float = 100.0
 @export var friction: float = 100.0
 @export var dash_speed: float = 200.0      # Extra speed during dash
 @export var dash_duration: float = 0.1     # How long the dash lasts (seconds)
@@ -14,8 +14,11 @@ var dash_cooldown_timer: float = 0.0
 var can_move := true
 var can_fire := true
 
-@export var shoot_cooldown: float = 0.3
+var dead := false
+
+@export var shoot_cooldown: float = 0.6
 var shoot_timer: float = 0.0
+var harpoon_speed: float = 200.0
 
 var points := 0
 
@@ -29,8 +32,9 @@ var fishes := {
 @export var max_health := 3
 var current_health := max_health
 
-# References to your heart sprites
 @onready var hearts := $CanvasLayer/HBoxContainer.get_children()
+
+var it_time = false
 
 func take_damage(amount: int) -> void:
 	current_health = max(current_health - amount, 0)
@@ -45,11 +49,33 @@ func update_hearts() -> void:
 		else:
 			hearts[i].texture = preload("res://Sprites/EmptyHeart.png")
 
+func update_visible_hearts() -> void:
+	for i in range(len(hearts)):
+		hearts[i].visible = i < max_health
+
+func increase_max_health(amount: int) -> void:
+	max_health += amount
+	current_health = max_health
+	update_visible_hearts()
+	update_hearts()
+
+
 func die() -> void:
 	print("Player is dead!")
-	# Add game over logic here
+	can_move = false
+	can_fire = false
+	dead = true
+	$CanvasLayer/Dead.visible = true
+	$CanvasLayer/Again.visible = true
+	
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		position.y += delta * 10
+	if it_time and global_position.x >= 230:
+		print("here")
+		it_time = false
+		get_parent().get_parent().here = true
 	shoot_timer -= delta
 	if Input.is_action_just_pressed("shoot") and shoot_timer <= 0.0 and can_fire:
 		shoot_timer = shoot_cooldown
@@ -95,7 +121,7 @@ func shoot_harpoon():
 	var mouse_pos = get_global_mouse_position()
 	var dir = (mouse_pos - pos).normalized()
 
-	get_parent().get_parent().create_harpoon(pos, dir)
+	get_parent().get_parent().create_harpoon(pos, dir, harpoon_speed)
 
 
 func _on_fish_timer_timeout() -> void:
@@ -182,3 +208,25 @@ func update_points(point):
 	points += point
 	$CanvasLayer/Points.text = str(points)
 		
+func stop_fish():
+	$FishTimer.stop()
+	$SharkTimer.stop()
+	$WhealTimer.stop()
+	$TentacleTimer.stop()
+	
+func start_fish():
+	$FishTimer.start()
+	$SharkTimer.start()
+	$WhealTimer.start()
+	$TentacleTimer.start()
+
+
+func _on_again_pressed() -> void:
+	get_tree().reload_current_scene()
+	
+func victory():
+	$CanvasLayer/Victory.visible = true
+	$CanvasLayer/Again.visible = true
+	
+
+	

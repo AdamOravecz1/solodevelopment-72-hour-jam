@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b4ae42b8bpdv3"]
+[gd_scene load_steps=11 format=4 uid="uid://b4ae42b8bpdv3"]
 
 [ext_resource type="Texture2D" uid="uid://di4j4xjjppyds" path="res://Sprites/LightHouse.png" id="1_8gbba"]
 [ext_resource type="Script" uid="uid://c0s1dol0m520s" path="res://Scenes/main.gd" id="1_344ge"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://drcmrk8w0qg6k" path="res://Sprites/Sea.png" id="2_8gbba"]
 [ext_resource type="Texture2D" uid="uid://8bcof18beix1" path="res://Sprites/Barrier.png" id="3_21xkr"]
 [ext_resource type="PackedScene" uid="uid://lbp4e243puud" path="res://Scenes/shop.tscn" id="6_6bp64"]
+[ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="7_6bp64"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
 texture = ExtResource("2_8gbba")
@@ -44,7 +45,7 @@ texture = ExtResource("3_21xkr")
 position = Vector2(66, 11)
 
 [node name="Camera2D" type="Camera2D" parent="Entity/Ship"]
-position = Vector2(0, -64)
+position = Vector2(0, -62)
 zoom = Vector2(2.5, 2.5)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -78,3 +79,14 @@ shape = SubResource("RectangleShape2D_344ge")
 
 [node name="Shop" parent="." instance=ExtResource("6_6bp64")]
 position = Vector2(24, 25)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -160.0
+offset_top = -14.0
+offset_right = -54.0
+offset_bottom = 18.0
+theme_override_fonts/font = ExtResource("7_6bp64")
+theme_override_font_sizes/font_size = 8
+text = "Move: A, D
+Shoot: LeftMouse
+Dash: Space"

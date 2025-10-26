@@ -62,7 +62,7 @@ script = ExtResource("1_bamsg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_est5g")
-frame_progress = 0.329398
+frame_progress = 0.284973
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -545)

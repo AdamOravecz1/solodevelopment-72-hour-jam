@@ -110,6 +110,24 @@ position = Vector2(192, 32)
 scale = Vector2(2, 2)
 texture = ExtResource("3_xxxu3")
 
+[node name="FullHeart4" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+visible = false
+position = Vector2(256, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
+[node name="FullHeart5" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+visible = false
+position = Vector2(320, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
+[node name="FullHeart6" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+visible = false
+position = Vector2(384, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
 [node name="Points" type="Label" parent="CanvasLayer"]
 offset_left = 18.0
 offset_top = 59.0
@@ -120,7 +138,65 @@ theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 32
 text = "00"
 
+[node name="Dead" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -548.0
+offset_top = -193.0
+offset_right = 548.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 64
+text = "You are sleeping with 
+the fishes now"
+horizontal_alignment = 1
+
+[node name="Victory" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -548.0
+offset_top = -111.0
+offset_right = 548.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 32
+text = "You killed the defender of the sea. 
+Now it is safe to overfish the region."
+horizontal_alignment = 1
+
+[node name="Again" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -15.5
+offset_right = 31.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 32
+text = "Play Again"
+
 [connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]
 [connection signal="timeout" from="SharkTimer" to="." method="_on_shark_timer_timeout"]
 [connection signal="timeout" from="WhealTimer" to="." method="_on_wheal_timer_timeout"]
 [connection signal="timeout" from="TentacleTimer" to="." method="_on_tentacle_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Again" to="." method="_on_again_pressed"]

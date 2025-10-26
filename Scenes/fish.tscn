@@ -38,7 +38,7 @@ shape = SubResource("RectangleShape2D_c4ibo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jdl8t")
 autoplay = "default"
-frame_progress = 0.935183
+frame_progress = 0.844965
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 4.0
