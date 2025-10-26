@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://heore1wwakb8"]
+
+[ext_resource type="Texture2D" uid="uid://b3yn2xxukpfmt" path="res://Sprites/IT.png" id="1_b1yg8"]
+[ext_resource type="Script" uid="uid://h537ym4dd2cs" path="res://Scenes/it.gd" id="1_bamsg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bamsg"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7gs7"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uats"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kh2qv"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrhdh"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sojbv"]
+atlas = ExtResource("1_b1yg8")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_est5g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bamsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7gs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uats")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kh2qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrhdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sojbv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6f7d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bamsg"]
+
+[node name="IT" type="Area2D"]
+script = ExtResource("1_bamsg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_est5g")
+frame_progress = 0.908963
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u6f7d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -26)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-11, 118)
+shape = SubResource("RectangleShape2D_bamsg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-346, -26)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-11, 118)
+shape = SubResource("RectangleShape2D_bamsg")
+
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(-74, -14)
+
+[node name="Attack1" type="Timer" parent="."]
+one_shot = true
+
+[node name="Attack2" type="Timer" parent="."]
+one_shot = true
+
+[node name="Attack3" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Attack1" to="." method="_on_attack_1_timeout"]
+[connection signal="timeout" from="Attack2" to="." method="_on_attack_2_timeout"]
+[connection signal="timeout" from="Attack3" to="." method="_on_attack_3_timeout"]

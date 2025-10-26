@@ -8,6 +8,9 @@ var health: int = 3
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
+var shoot := true
+var was_above_water := false
+
 func setup(pos: Vector2, dir: Vector2, heal: int):
 	health = heal
 	
@@ -26,19 +29,38 @@ func _physics_process(delta: float) -> void:
 
 	# Move based on velocity
 	position += velocity * delta
+	
+	# Detect when shark crosses waterline (y = 0) going downward
+	if position.y < 20:
+		was_above_water = true  # shark is above water
+	elif was_above_water and position.y >= 20 and velocity.y > 0 and shoot:
+		# Now it's going down and just re-entered the water
+		shoot = false
+		for i in range(3):
+			# 1. Base direction is straight up
+			var base_dir = Vector2(0, -1)
+
+			# 2. Add slight randomness (±10 degrees)
+			var angle_offset = deg_to_rad(randf_range(-10, 10))
+			var jump_dir = base_dir.rotated(angle_offset)
+			# 3. Random speed
+			var speed = randf_range(200, 300)
+			
+			get_parent().get_parent().create_bullets(global_position, jump_dir, speed)
 
 	# Rotate sprite to face current flight direction
 	rotation = velocity.angle() + deg_to_rad(180)
 	
 func hit(damage, dir):
+	$CollisionShape2D.queue_free()
 	health -= damage
-	velocity += dir
+	velocity += dir * 0.5
 	if health <= 0:
 		queue_free()
 
 
 func _on_jump_timer_timeout() -> void:
-	get_tree().get_first_node_in_group("Ship").fishes["fish"].append(health)
+	get_tree().get_first_node_in_group("Ship").fishes["shark"].append(health)
 	queue_free()
 	
 func _on_body_entered(body: Node2D) -> void:

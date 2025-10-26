@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://d3rnowj58y1cb" path="res://Scenes/harpoon.gd" id="1_hdtqa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdtqa"]
-size = Vector2(27, 3)
+size = Vector2(9, 3)
 
 [node name="Harpoon" type="Area2D"]
 script = ExtResource("1_hdtqa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 1.5)
+position = Vector2(9.5, 1.5)
 shape = SubResource("RectangleShape2D_hdtqa")
 
 [node name="Harpoon" type="Sprite2D" parent="."]

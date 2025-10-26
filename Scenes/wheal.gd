@@ -1,6 +1,6 @@
 extends Area2D
 
-var health: int = 3
+var health: int = 6
 
 @export var speed: float = 200.0
 @export var gravity_force: float = 200.0  
@@ -32,15 +32,23 @@ func _physics_process(delta: float) -> void:
 	
 func hit(damage, dir):
 	health -= damage
-	velocity += dir
+	velocity += dir * 0.2
 	if health <= 0:
 		queue_free()
 
 
 func _on_jump_timer_timeout() -> void:
-	get_tree().get_first_node_in_group("Ship").fishes["fish"].append(health)
+	get_tree().get_first_node_in_group("Ship").fishes["wheal"].append(health)
 	queue_free()
-	
+
+
+func _on_shoot_timer_timeout() -> void:
+	if position.y <= 0:
+		# Shoot in the direction the whale is facing, rotated 90° if sprite faces up
+		var shoot_dir = Vector2.UP.rotated(rotation)  # changed from RIGHT to UP
+		var speed = 150
+		get_parent().get_parent().create_bullets(global_position, shoot_dir, speed)
+
 func _on_body_entered(body: Node2D) -> void:
 	if "take_damage" in body:
 		body.take_damage(1)

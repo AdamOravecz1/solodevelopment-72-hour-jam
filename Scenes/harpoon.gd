@@ -1,10 +1,13 @@
 extends Area2D
 
+var damage: int = 1
+
 @export var speed: float = 200.0
 @export var gravity_force: float = 200.0  
 
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
+
 
 func setup(pos: Vector2, dir: Vector2):
 	global_position = pos
@@ -30,4 +33,5 @@ func _on_kill_timer_timeout():
 	queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	print(area)
+	if "hit" in area:
+		area.hit(damage, velocity)

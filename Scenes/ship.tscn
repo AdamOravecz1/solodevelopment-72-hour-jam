@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://be6epu4ykfpn6"]
+[gd_scene load_steps=10 format=3 uid="uid://be6epu4ykfpn6"]
 
 [ext_resource type="Script" uid="uid://b3m85cfbolcvd" path="res://Scenes/ship.gd" id="1_4qyt1"]
 [ext_resource type="Texture2D" uid="uid://csm2f8c62s0ph" path="res://Sprites/Ship.png" id="1_78pfh"]
+[ext_resource type="Texture2D" uid="uid://biojekesilhc8" path="res://Sprites/FullHeart.png" id="3_xxxu3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qyt1"]
 size = Vector2(28, 25)
@@ -46,7 +47,8 @@ _data = {
 }
 point_count = 2
 
-[node name="Ship" type="CharacterBody2D"]
+[node name="Ship" type="CharacterBody2D" groups=["Ship"]]
+collision_layer = 2
 script = ExtResource("1_4qyt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -56,10 +58,6 @@ shape = SubResource("RectangleShape2D_4qyt1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cmder")
 autoplay = "default"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -63)
-zoom = Vector2(3, 3)
 
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2(0, 45)
@@ -73,4 +71,45 @@ rotation = -3.1378
 wait_time = 2.0
 autostart = true
 
+[node name="SharkTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="WhealTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="TentacleTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_right = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FullHeart" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+position = Vector2(64, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
+[node name="FullHeart2" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+position = Vector2(128, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
+[node name="FullHeart3" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
+position = Vector2(192, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("3_xxxu3")
+
 [connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]
+[connection signal="timeout" from="SharkTimer" to="." method="_on_shark_timer_timeout"]
+[connection signal="timeout" from="WhealTimer" to="." method="_on_wheal_timer_timeout"]
+[connection signal="timeout" from="TentacleTimer" to="." method="_on_tentacle_timer_timeout"]
