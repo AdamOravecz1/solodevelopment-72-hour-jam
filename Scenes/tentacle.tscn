@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0porxafh2vdd"]
+[gd_scene load_steps=20 format=3 uid="uid://d0porxafh2vdd"]
 
 [ext_resource type="Script" uid="uid://d2xdd8jqeklhu" path="res://Scenes/tentacle.gd" id="1_1odjd"]
 [ext_resource type="Texture2D" uid="uid://d05aqbffs7fyw" path="res://Sprites/Tentacle.png" id="1_2j60p"]
@@ -117,6 +117,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fir4"]
+size = Vector2(36, 22)
+
 [node name="Tentacle" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_1odjd")
@@ -128,6 +131,11 @@ shape = SubResource("RectangleShape2D_1odjd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fq023")
 autoplay = "default"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 21)
+shape = SubResource("RectangleShape2D_2fir4")
+disabled = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

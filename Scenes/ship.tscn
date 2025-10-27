@@ -141,6 +141,16 @@ theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 32
 text = "00"
 
+[node name="Day" type="Label" parent="CanvasLayer"]
+offset_left = 1003.0
+offset_top = 11.0
+offset_right = 1135.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 32
+text = "Day: 0"
+
 [node name="Dead" type="Label" parent="CanvasLayer"]
 visible = false
 anchors_preset = 8

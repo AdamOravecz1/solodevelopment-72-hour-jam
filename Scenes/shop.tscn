@@ -150,7 +150,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.996078)
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -78.0

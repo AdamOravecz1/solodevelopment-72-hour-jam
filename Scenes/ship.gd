@@ -196,7 +196,6 @@ func _on_wheal_timer_timeout() -> void:
 		fishes["wheal"].erase(fish)
 
 func _on_tentacle_timer_timeout() -> void:
-	print(fishes["tentacle"])
 	for fish in fishes["tentacle"]:
 		# 1. Pick a random point along the path under the boat
 		$Path2D/PathFollow2D.progress_ratio = randf()
@@ -234,5 +233,9 @@ func victory():
 	$CanvasLayer/Victory.visible = true
 	$CanvasLayer/Again.visible = true
 	
+var day = 0
+func add_day():
+	day += 1
+	$CanvasLayer/Day.text = "Day: " + str(day)
 
 	

@@ -19,12 +19,15 @@ func _physics_process(delta: float) -> void:
 
 func hit(damage, velocity):
 	if position.y <= 0:
-		$CollisionShape2D.queue_free()
+		$CollisionShape2D.call_deferred("queue_free")
 		health -= damage
 		if health <= 0:
 			queue_free()
 			get_tree().get_first_node_in_group("Ship").update_points(8)
 		$AnimatedSprite2D.play("attack")
+		await get_tree().create_timer(0.5).timeout
+		$CollisionShape2D2.set_deferred("disabled", false)
+
 		
 
 
@@ -54,8 +57,16 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()
 	
 func _on_body_entered(body: Node2D) -> void:
-
 	if "take_damage" in body:
 		$AnimatedSprite2D.play("attack")
-		$CollisionShape2D.queue_free()
+
+		var cs := get_node_or_null("CollisionShape2D")
+		var cs2 := get_node_or_null("CollisionShape2D2")
+
+		if cs:                       # only call methods if node exists
+			cs.call_deferred("queue_free")
+			
+		if cs2:
+			cs2.call_deferred("queue_free")
+
 		body.take_damage(1)

@@ -9,6 +9,8 @@ var accelaration = 1
 var upgraded = true
 var level = -1
 
+var spawned = true
+
 @onready var ship = get_tree().get_first_node_in_group("Ship")
 
 func _ready() -> void:
@@ -29,34 +31,41 @@ func _on_body_exited(body: Node2D) -> void:
 	if upgraded:
 		level += 1
 		upgraded = false
-	if level == 1:
+	if level == 1 and spawned:
+		spawned = false
 		for i in range(5):
 			ship.fishes["fish"].append(2)
 		for i in range(2):
 			ship.fishes["shark"].append(4)
-	if level == 2:
+	if level == 2 and spawned:
+		spawned = false
 		for i in range(3):
 			ship.fishes["fish"].append(2)
 		ship.fishes["shark"].append(4)
 		ship.fishes["wheal"].append(6)
-	if level == 3:
+	if level == 3 and spawned:
+		spawned = false
 		for i in range(6):
 			ship.fishes["fish"].append(2)
 		ship.fishes["tentacle"].append(4)
-	if level == 4:
+	if level == 4 and spawned:
+		spawned = false
 		for i in range(3):
 			ship.fishes["shark"].append(4)
 		for i in range(3):
 			ship.fishes["wheal"].append(6)
-	if level == 5:
+	if level == 5 and spawned:
+		spawned = false
 		for i in range(4):
 			ship.fishes["tentacle"].append(4)
-	if level == 6:
+	if level == 6 and spawned:
+		spawned = false
 		for i in range(3):
 			ship.fishes["tentacle"].append(4)
 		for i in range(3):
 			ship.fishes["wheal"].append(6)
-	if level == 7:
+	if level == 7 and spawned:
+		spawned = false
 		ship.it_time = true
 		for key in ship.fishes.keys():
 			ship.fishes[key] = []
@@ -132,13 +141,17 @@ func _on_heal_pressed() -> void:
 		$Buy.play()
 
 		ship.update_points(-5)
-		ship.take_damage(-ship.max_health) 
+		ship.current_health = ship.max_health
+		ship.update_hearts()
+		
 
 
 func _on_new_day_pressed() -> void:
+	spawned
 	print("pressed")
-
 	if not upgraded:
+		ship.add_day()
+		spawned = true
 		var tween = create_tween()
 		
 		tween.tween_property($CanvasLayer/ColorRect, "modulate", Color(1, 1, 1, 1), 1.0)  # visible
