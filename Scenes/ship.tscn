@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://be6epu4ykfpn6"]
+[gd_scene load_steps=14 format=3 uid="uid://be6epu4ykfpn6"]
 
 [ext_resource type="Script" uid="uid://b3m85cfbolcvd" path="res://Scenes/ship.gd" id="1_4qyt1"]
 [ext_resource type="Texture2D" uid="uid://csm2f8c62s0ph" path="res://Sprites/Ship.png" id="1_78pfh"]
 [ext_resource type="Texture2D" uid="uid://biojekesilhc8" path="res://Sprites/FullHeart.png" id="3_xxxu3"]
 [ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="4_6ejuo"]
+[ext_resource type="AudioStream" uid="uid://8go61pyawfsy" path="res://Sounds/crossbow-firing-95020.wav" id="5_8aq7e"]
+[ext_resource type="AudioStream" uid="uid://bq81hlgswg03n" path="res://Sounds/noisy-whooshes-88507.wav" id="6_cmder"]
+[ext_resource type="AudioStream" uid="uid://dp5irxwefr8er" path="res://Sounds/wood-crack-1-105890.wav" id="7_fwcnm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qyt1"]
 size = Vector2(28, 25)
@@ -81,7 +84,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="TentacleTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -151,7 +154,6 @@ offset_right = 548.0
 offset_bottom = -62.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 64
 text = "You are sleeping with 
@@ -171,7 +173,6 @@ offset_right = 548.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 32
 text = "You killed the defender of the sea. 
@@ -194,6 +195,15 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 32
 text = "Play Again"
+
+[node name="Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8aq7e")
+
+[node name="Dash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_cmder")
+
+[node name="Damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fwcnm")
 
 [connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]
 [connection signal="timeout" from="SharkTimer" to="." method="_on_shark_timer_timeout"]

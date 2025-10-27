@@ -6,11 +6,13 @@ var health = 1
 var max_speed = 1
 var accelaration = 1
 
-var upgraded = false
-var level = 0
+var upgraded = true
+var level = -1
 
 @onready var ship = get_tree().get_first_node_in_group("Ship")
 
+func _ready() -> void:
+	$CanvasLayer/ColorRect.modulate = Color(1, 1, 1, 0)  # Start fully transparent
 
 func _on_body_entered(body: Node2D) -> void:
 	$CanvasLayer.visible = true
@@ -47,7 +49,7 @@ func _on_body_exited(body: Node2D) -> void:
 		for i in range(3):
 			ship.fishes["wheal"].append(6)
 	if level == 5:
-		for i in range(5):
+		for i in range(4):
 			ship.fishes["tentacle"].append(4)
 	if level == 6:
 		for i in range(3):
@@ -65,7 +67,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_fire_rate_pressed() -> void:
 	if fire_rate < 4 and ship.points >= fire_rate*5:
-		upgraded = true
+		$Buy.play()
 		ship.update_points(-fire_rate*5)
 		fire_rate += 1
 		ship.shoot_cooldown -= 0.2
@@ -77,7 +79,7 @@ func _on_fire_rate_pressed() -> void:
 
 func _on_fire_range_pressed() -> void:
 	if fire_range < 4 and ship.points >= fire_range*5:
-		upgraded = true
+		$Buy.play()
 		ship.update_points(-fire_range*5)
 		fire_range += 1
 		ship.harpoon_speed += 100
@@ -89,7 +91,7 @@ func _on_fire_range_pressed() -> void:
 
 func _on_health_pressed() -> void:
 	if health < 4 and ship.points >= health*5:
-		upgraded = true
+		$Buy.play()
 		ship.update_points(-health*5)
 		health += 1
 		ship.increase_max_health(1)
@@ -101,7 +103,8 @@ func _on_health_pressed() -> void:
 
 func _on_max_speed_pressed() -> void:
 	if max_speed < 4 and ship.points >= max_speed*5:
-		upgraded = true
+		$Buy.play()
+
 		ship.update_points(-max_speed*5)
 		max_speed += 1
 		ship.max_speed += 50
@@ -113,7 +116,8 @@ func _on_max_speed_pressed() -> void:
 
 func _on_accelaration_pressed() -> void:
 	if accelaration < 4 and ship.points >= accelaration*5:
-		upgraded = true
+		$Buy.play()
+
 		ship.update_points(-accelaration*5)
 		accelaration += 1
 		ship.acceleration += 50
@@ -125,6 +129,23 @@ func _on_accelaration_pressed() -> void:
 
 func _on_heal_pressed() -> void:
 	if ship.points >= 5:
-		upgraded = true
+		$Buy.play()
+
 		ship.update_points(-5)
 		ship.take_damage(-ship.max_health) 
+
+
+func _on_new_day_pressed() -> void:
+	print("pressed")
+
+	if not upgraded:
+		var tween = create_tween()
+		
+		tween.tween_property($CanvasLayer/ColorRect, "modulate", Color(1, 1, 1, 1), 1.0)  # visible
+		$Morning.play()
+		tween.tween_property($CanvasLayer/ColorRect, "modulate", Color(1, 1, 1, 0), 1.0).set_delay(1.0)  # transparent
+	upgraded = true
+
+
+
+	

@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://lbp4e243puud"]
+[gd_scene load_steps=7 format=3 uid="uid://lbp4e243puud"]
 
 [ext_resource type="Script" uid="uid://b4yoru53imm73" path="res://Scenes/shop.gd" id="1_a0mxf"]
 [ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="2_2shtd"]
+[ext_resource type="AudioStream" uid="uid://vp7xr43ocsgr" path="res://Sounds/wood-surface-single-coin-payout-4-215284.wav" id="3_io27d"]
+[ext_resource type="AudioStream" uid="uid://bfmards8y6mt2" path="res://Sounds/seagull-2-89447.wav" id="4_fdj0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2shtd"]
 size = Vector2(86, 97)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_io27d"]
 
 [node name="Shop" type="Area2D"]
 collision_layer = 0
@@ -125,6 +129,29 @@ theme_override_fonts/font = ExtResource("2_2shtd")
 theme_override_font_sizes/font_size = 32
 text = "cost:5"
 
+[node name="NewDay" type="Button" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -174.0
+offset_top = 26.0
+offset_right = 174.0
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_2shtd")
+theme_override_font_sizes/font_size = 32
+text = "Start New Day"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_io27d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.996078)
+
 [node name="Label" type="Label" parent="."]
 offset_left = -78.0
 offset_top = 1.0
@@ -138,6 +165,13 @@ Black and White job.
 You catch or don't.
 You get paid or don't."
 
+[node name="Buy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_io27d")
+
+[node name="Morning" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fdj0q")
+volume_db = 20.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/FireRate" to="." method="_on_fire_rate_pressed"]
@@ -146,3 +180,4 @@ You get paid or don't."
 [connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/MaxSpeed" to="." method="_on_max_speed_pressed"]
 [connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/Accelaration" to="." method="_on_accelaration_pressed"]
 [connection signal="pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/Heal" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="CanvasLayer/NewDay" to="." method="_on_new_day_pressed"]

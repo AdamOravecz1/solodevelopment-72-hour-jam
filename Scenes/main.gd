@@ -73,6 +73,8 @@ var here = false
 
 func _physics_process(delta: float) -> void:
 	if here:
+		$Music.stop()
+		$Arrive.play()
 		here = false
 		$Entity/Ship.can_move = false
 		$Entity/Ship/Camera2D.enabled = false
@@ -126,3 +128,8 @@ func rid_tentacle():
 		if i.name != "Ship" and i.name != "IT":
 			print("removed: ", i.name)
 			i.queue_free()
+
+
+func _on_splash_area_entered(area: Area2D) -> void:
+	$SplashSound.pitch_scale = randf_range(0.5, 1.3)
+	$SplashSound.play()

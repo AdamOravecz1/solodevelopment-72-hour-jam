@@ -5,6 +5,8 @@ extends Area2D
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
+var splashed = false
+
 func setup(pos: Vector2, dir, speed):
 	direction = dir.normalized()
 
@@ -18,6 +20,11 @@ func _physics_process(delta: float) -> void:
 
 	# Move based on velocity
 	position += velocity * delta
+	
+	if position.y >= 0 and not splashed:
+		splashed = true
+		$SplashSound.pitch_scale = randf_range(0.5, 1.3)
+		$SplashSound.play()
 
 
 func hit(damage, dir):

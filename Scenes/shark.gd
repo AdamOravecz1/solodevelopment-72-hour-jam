@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	# Detect when shark crosses waterline (y = 0) going downward
 	if position.y < 20:
 		was_above_water = true  # shark is above water
-	elif was_above_water and position.y >= 20 and velocity.y > 0 and shoot:
+	elif was_above_water and position.y >= 20 and velocity.y > 0 and shoot and health > 0:
 		# Now it's going down and just re-entered the water
 		shoot = false
 		for i in range(3):
@@ -55,7 +55,12 @@ func hit(damage, dir):
 	health -= damage
 	velocity += dir * 0.5
 	if health <= 0:
+		$CollisionShape2D.queue_free()
 		get_tree().get_first_node_in_group("Ship").update_points(4)
+		$Dead.play()
+		visible = false
+		$JumpTimer.stop()
+		await get_tree().create_timer(1).timeout
 		queue_free()
 
 

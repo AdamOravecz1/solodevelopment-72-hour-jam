@@ -34,12 +34,19 @@ func hit(damage, dir):
 	health -= damage
 	velocity += dir * 0.2
 	if health <= 0:
+		$CollisionShape2D.queue_free()
 		get_tree().get_first_node_in_group("Ship").update_points(6)
+		$Dead.play()
+		visible = false
+		$JumpTimer.stop()
+		$ShootTimer.stop()
+		await get_tree().create_timer(1).timeout
 		queue_free()
 
 
 func _on_jump_timer_timeout() -> void:
 	get_tree().get_first_node_in_group("Ship").fishes["wheal"].append(health)
+
 	queue_free()
 
 

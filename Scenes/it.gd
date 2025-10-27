@@ -10,6 +10,8 @@ var down = false
 
 func setup(pos):
 	position = pos
+	$Rumble.play()
+
 	
 func _physics_process(delta: float) -> void:
 	# --- Going up ---
@@ -18,7 +20,8 @@ func _physics_process(delta: float) -> void:
 			position.y -= delta * speed
 		else:
 			up = false
-			
+			$Rumble.stop()
+			$Music.play()
 			$AnimatedSprite2D.play("default")
 			get_parent().get_parent().stop_camera_shake()
 			get_tree().get_first_node_in_group("Ship").can_move = true
@@ -31,6 +34,7 @@ func _physics_process(delta: float) -> void:
 		if position.y < 125:  # move back down until water level (y = 0)
 			position.y += delta * speed
 		else:
+			$Rumble.stop()
 			down = false  # stop moving once it’s back down
 			get_parent().get_parent().stop_camera_shake()
 			get_tree().get_first_node_in_group("Ship").victory()
@@ -96,6 +100,7 @@ func execute_random_attack() -> void:
 func stagger():
 	if get_tree().get_first_node_in_group("Ship").dead == false:
 		$AnimatedSprite2D.visible = false
+		$Stagger.start()
 		var roll = randi_range(0, 2)
 		if roll == 0:
 			$It.visible = true
@@ -113,13 +118,16 @@ func hit(damage, dir):
 	if health > 0:
 		stagger_off()
 	if health <= 0:
+		$Rumble.play()
+		$Music.stop()
 		down = true
 		get_tree().get_first_node_in_group("Ship").fishes["tentacle"] = []
 		get_parent().get_parent().rid_tentacle()
 		get_parent().get_parent().start_camera_shake()
 
 func _on_stagger_timeout() -> void:
-	stagger_off()
+	if health > 0:
+		stagger_off()
 
 func stagger_off():
 	$CollisionShape2D.position = Vector2(-3, -1000)

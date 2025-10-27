@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://oe5uvem2xy36"]
+[gd_scene load_steps=5 format=3 uid="uid://oe5uvem2xy36"]
 
 [ext_resource type="Texture2D" uid="uid://cxxt7djqjr4ln" path="res://Sprites/Harpoon.png" id="1_ank2v"]
 [ext_resource type="Script" uid="uid://d3rnowj58y1cb" path="res://Scenes/harpoon.gd" id="1_hdtqa"]
+[ext_resource type="AudioStream" uid="uid://b8s8k1djn6kye" path="res://Sounds/classic-punch-impact-352711.wav" id="3_s0ibq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdtqa"]
 size = Vector2(9, 3)
 
 [node name="Harpoon" type="Area2D"]
+collision_layer = 0
+collision_mask = 5
 script = ExtResource("1_hdtqa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,6 +23,9 @@ texture = ExtResource("1_ank2v")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_s0ibq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

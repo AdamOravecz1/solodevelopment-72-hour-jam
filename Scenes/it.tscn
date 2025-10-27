@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://heore1wwakb8"]
+[gd_scene load_steps=14 format=3 uid="uid://heore1wwakb8"]
 
 [ext_resource type="Texture2D" uid="uid://b3yn2xxukpfmt" path="res://Sprites/IT.png" id="1_b1yg8"]
 [ext_resource type="Script" uid="uid://h537ym4dd2cs" path="res://Scenes/it.gd" id="1_bamsg"]
+[ext_resource type="AudioStream" uid="uid://c8wfm6ip0yfp8" path="res://Sounds/low-rumbling-176033.wav" id="3_e7gs7"]
+[ext_resource type="AudioStream" uid="uid://dc1dymc86cvkv" path="res://Sounds/stories-108936.mp3" id="4_3uats"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bamsg"]
 atlas = ExtResource("1_b1yg8")
@@ -62,7 +64,7 @@ script = ExtResource("1_bamsg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_est5g")
-frame_progress = 0.284973
+frame_progress = 0.704093
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -545)
@@ -120,8 +122,14 @@ vframes = 3
 frame = 6
 
 [node name="Stagger" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
+
+[node name="Rumble" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e7gs7")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3uats")
 
 [connection signal="timeout" from="Attack1" to="." method="_on_attack_1_timeout"]
 [connection signal="timeout" from="Attack2" to="." method="_on_attack_2_timeout"]

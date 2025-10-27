@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjavf5h1yy5us"]
+[gd_scene load_steps=8 format=3 uid="uid://bjavf5h1yy5us"]
 
 [ext_resource type="Texture2D" uid="uid://clfk18uxpm5ej" path="res://Sprites/Shark.png" id="1_03h2o"]
 [ext_resource type="Script" uid="uid://bo88evb55wk5m" path="res://Scenes/shark.gd" id="1_87kak"]
+[ext_resource type="AudioStream" uid="uid://c6foosngcchrx" path="res://Sounds/punch-03-352040.wav" id="3_cb72u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87kak"]
 atlas = ExtResource("1_03h2o")
@@ -35,7 +36,7 @@ script = ExtResource("1_87kak")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6rxyh")
 autoplay = "default"
-frame_progress = 0.704996
+frame_progress = 0.353512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -45,6 +46,9 @@ shape = SubResource("RectangleShape2D_wyy8k")
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="Dead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cb72u")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

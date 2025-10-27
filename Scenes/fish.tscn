@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cibc042l28ck4"]
+[gd_scene load_steps=9 format=3 uid="uid://cibc042l28ck4"]
 
 [ext_resource type="Script" uid="uid://bkmnvygskvtr7" path="res://Scenes/fish.gd" id="1_c4ibo"]
 [ext_resource type="Texture2D" uid="uid://f3lphlj1ygdg" path="res://Sprites/Fish.png" id="1_twvwo"]
+[ext_resource type="AudioStream" uid="uid://c6foosngcchrx" path="res://Sounds/punch-03-352040.wav" id="3_4fqy1"]
+[ext_resource type="AudioStream" uid="uid://bksavcmbexbrm" path="res://Sounds/water-splash-46402.wav" id="4_urn1o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4ibo"]
 size = Vector2(10, 4)
@@ -38,12 +40,18 @@ shape = SubResource("RectangleShape2D_c4ibo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jdl8t")
 autoplay = "default"
-frame_progress = 0.844965
+frame_progress = 0.535626
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="Dead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4fqy1")
+
+[node name="SplashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_urn1o")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

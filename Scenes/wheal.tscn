@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0konhdy2gegy"]
+[gd_scene load_steps=8 format=3 uid="uid://c0konhdy2gegy"]
 
 [ext_resource type="Texture2D" uid="uid://buusmgduxhd2g" path="res://Sprites/Whale.png" id="1_6owac"]
 [ext_resource type="Script" uid="uid://cil33nnkxbxxw" path="res://Scenes/wheal.gd" id="1_fk5te"]
+[ext_resource type="AudioStream" uid="uid://c6foosngcchrx" path="res://Sounds/punch-03-352040.wav" id="3_640sr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fk5te"]
 size = Vector2(61, 16)
@@ -39,7 +40,7 @@ shape = SubResource("RectangleShape2D_fk5te")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5lneq")
 autoplay = "default"
-frame_progress = 0.385034
+frame_progress = 0.583904
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 4.0
@@ -49,6 +50,9 @@ autostart = true
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
+
+[node name="Dead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_640sr")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

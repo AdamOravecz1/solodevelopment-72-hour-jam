@@ -39,7 +39,8 @@ var it_time = false
 func take_damage(amount: int) -> void:
 	current_health = max(current_health - amount, 0)
 	update_hearts()
-	if current_health == 0:
+	$Damage.play()
+	if current_health <= 0:
 		die()
 
 func update_hearts() -> void:
@@ -61,6 +62,7 @@ func increase_max_health(amount: int) -> void:
 
 
 func die() -> void:
+	stop_fish()
 	print("Player is dead!")
 	can_move = false
 	can_fire = false
@@ -70,7 +72,7 @@ func die() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	if dead:
+	if dead and position.y <= 250:
 		position.y += delta * 10
 	if it_time and global_position.x >= 230:
 		print("here")
@@ -78,6 +80,8 @@ func _physics_process(delta: float) -> void:
 		get_parent().get_parent().here = true
 	shoot_timer -= delta
 	if Input.is_action_just_pressed("shoot") and shoot_timer <= 0.0 and can_fire:
+		$Fire.pitch_scale = randf_range(0.8, 1.2)
+		$Fire.play()
 		shoot_timer = shoot_cooldown
 		shoot_harpoon()
 		
@@ -85,6 +89,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle dash logic
 	if Input.is_action_just_pressed("dash") and not dashing and dash_cooldown_timer <= 0.0 and input_direction != 0:
+		$Dash.play()
 		dashing = true
 		dash_timer = dash_duration
 		dash_cooldown_timer = dash_cooldown
@@ -191,6 +196,7 @@ func _on_wheal_timer_timeout() -> void:
 		fishes["wheal"].erase(fish)
 
 func _on_tentacle_timer_timeout() -> void:
+	print(fishes["tentacle"])
 	for fish in fishes["tentacle"]:
 		# 1. Pick a random point along the path under the boat
 		$Path2D/PathFollow2D.progress_ratio = randf()
