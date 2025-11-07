@@ -127,9 +127,11 @@ one_shot = true
 
 [node name="Rumble" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_e7gs7")
+bus = &"Music"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3uats")
+bus = &"Music"
 
 [connection signal="timeout" from="Attack1" to="." method="_on_attack_1_timeout"]
 [connection signal="timeout" from="Attack2" to="." method="_on_attack_2_timeout"]

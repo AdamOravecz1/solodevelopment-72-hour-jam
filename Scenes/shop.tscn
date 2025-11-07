@@ -10,7 +10,7 @@ size = Vector2(86, 97)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_io27d"]
 
-[node name="Shop" type="Area2D"]
+[node name="Shop" type="Area2D" groups=["Shop"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_a0mxf")
@@ -167,10 +167,12 @@ You get paid or don't."
 
 [node name="Buy" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_io27d")
+bus = &"SFX"
 
 [node name="Morning" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fdj0q")
 volume_db = 20.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

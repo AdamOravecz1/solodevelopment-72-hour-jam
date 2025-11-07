@@ -14,6 +14,9 @@ var dash_cooldown_timer: float = 0.0
 var can_move := true
 var can_fire := true
 
+var paused := false
+var in_shop := true
+
 var dead := false
 
 @export var shoot_cooldown: float = 0.6
@@ -72,6 +75,18 @@ func die() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		Engine.time_scale = paused
+		can_move = paused
+		can_fire = paused
+		paused = not paused
+		
+		$CanvasLayer/Pause.visible = paused
+		if in_shop:
+			get_tree().get_first_node_in_group("Shop").hide_shop() if paused else get_tree().get_first_node_in_group("Shop").show_shop()
+		
+
+	
 	if dead and position.y <= 250:
 		position.y += delta * 10
 	if it_time and global_position.x >= 230:
@@ -88,7 +103,7 @@ func _physics_process(delta: float) -> void:
 	var input_direction := Input.get_action_strength("right") - Input.get_action_strength("left")
 
 	# Handle dash logic
-	if Input.is_action_just_pressed("dash") and not dashing and dash_cooldown_timer <= 0.0 and input_direction != 0:
+	if Input.is_action_just_pressed("dash") and not dashing and dash_cooldown_timer <= 0.0 and input_direction != 0 and not paused:
 		$Dash.play()
 		dashing = true
 		dash_timer = dash_duration
@@ -109,10 +124,11 @@ func _physics_process(delta: float) -> void:
 			$AnimatedSprite2D.play("default")
 
 	# Flip sprite depending on direction
-	if input_direction == 1:
-		$AnimatedSprite2D.flip_h = false
-	elif input_direction == -1:
-		$AnimatedSprite2D.flip_h = true
+	if can_move:
+		if input_direction == 1:
+			$AnimatedSprite2D.flip_h = false
+		elif input_direction == -1:
+			$AnimatedSprite2D.flip_h = true
 
 	# Update dash cooldown timer
 	if dash_cooldown_timer > 0.0:
@@ -151,6 +167,8 @@ func _on_fish_timer_timeout() -> void:
 		
 		fishes["fish"].erase(fish)
 		
+		await get_tree().create_timer(0.5).timeout
+		
 func _on_shark_timer_timeout() -> void:
 	for fish in fishes["shark"]:
 		# 1. Pick a random point along the path under the boat
@@ -173,6 +191,8 @@ func _on_shark_timer_timeout() -> void:
 		
 		fishes["shark"].erase(fish)
 		
+		await get_tree().create_timer(0.5).timeout
+		
 func _on_wheal_timer_timeout() -> void:
 	for fish in fishes["wheal"]:
 		# 1. Pick a random point along the path under the boat
@@ -194,6 +214,8 @@ func _on_wheal_timer_timeout() -> void:
 		$WhealTimer.start(randf_range(2.0, 3.0))
 		
 		fishes["wheal"].erase(fish)
+		
+		await get_tree().create_timer(0.5).timeout
 
 func _on_tentacle_timer_timeout() -> void:
 	for fish in fishes["tentacle"]:
@@ -208,6 +230,8 @@ func _on_tentacle_timer_timeout() -> void:
 		$TentacleTimer.start(randf_range(2.0, 3.0))
 		
 		fishes["tentacle"].erase(fish)
+		
+		await get_tree().create_timer(0.5).timeout
 		
 func update_points(point):
 	points += point

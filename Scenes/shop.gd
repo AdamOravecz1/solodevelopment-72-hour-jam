@@ -17,13 +17,20 @@ func _ready() -> void:
 	$CanvasLayer/ColorRect.modulate = Color(1, 1, 1, 0)  # Start fully transparent
 
 func _on_body_entered(body: Node2D) -> void:
+	ship.in_shop = true
 	$CanvasLayer.visible = true
 	ship.can_fire = false
 	ship.stop_fish()
 	$Label.visible = true
 	
+func hide_shop():
+	$CanvasLayer.visible = false
+	
+func show_shop():
+	$CanvasLayer.visible = true
 	
 func _on_body_exited(body: Node2D) -> void:
+	ship.in_shop = false
 	$CanvasLayer.visible = false
 	ship.can_fire = true
 	ship.start_fish()

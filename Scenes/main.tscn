@@ -105,12 +105,15 @@ shape = SubResource("SegmentShape2D_6bp64")
 
 [node name="SplashSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_344ge")
+bus = &"SFX"
 
 [node name="Arrive" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_ynf5e")
+bus = &"Music"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_hptm8")
 autoplay = true
+bus = &"Music"
 
 [connection signal="area_entered" from="Splash" to="." method="_on_splash_area_entered"]

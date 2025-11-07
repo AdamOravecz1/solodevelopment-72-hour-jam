@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://be6epu4ykfpn6"]
+[gd_scene load_steps=15 format=3 uid="uid://be6epu4ykfpn6"]
 
 [ext_resource type="Script" uid="uid://b3m85cfbolcvd" path="res://Scenes/ship.gd" id="1_4qyt1"]
 [ext_resource type="Texture2D" uid="uid://csm2f8c62s0ph" path="res://Sprites/Ship.png" id="1_78pfh"]
 [ext_resource type="Texture2D" uid="uid://biojekesilhc8" path="res://Sprites/FullHeart.png" id="3_xxxu3"]
 [ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="4_6ejuo"]
 [ext_resource type="AudioStream" uid="uid://8go61pyawfsy" path="res://Sounds/crossbow-firing-95020.wav" id="5_8aq7e"]
+[ext_resource type="PackedScene" uid="uid://bn5meckmqlgjn" path="res://Scenes/pause.tscn" id="5_kxdp2"]
 [ext_resource type="AudioStream" uid="uid://bq81hlgswg03n" path="res://Sounds/noisy-whooshes-88507.wav" id="6_cmder"]
 [ext_resource type="AudioStream" uid="uid://dp5irxwefr8er" path="res://Sounds/wood-crack-1-105890.wav" id="7_fwcnm"]
 
@@ -206,14 +207,21 @@ theme_override_fonts/font = ExtResource("4_6ejuo")
 theme_override_font_sizes/font_size = 32
 text = "Play Again"
 
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("5_kxdp2")]
+visible = false
+
 [node name="Fire" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_8aq7e")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="Dash" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_cmder")
+bus = &"SFX"
 
 [node name="Damage" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_fwcnm")
+bus = &"SFX"
 
 [connection signal="timeout" from="FishTimer" to="." method="_on_fish_timer_timeout"]
 [connection signal="timeout" from="SharkTimer" to="." method="_on_shark_timer_timeout"]
