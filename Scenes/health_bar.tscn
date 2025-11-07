@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://ofr01h61fhb7"]
+
+[ext_resource type="Script" uid="uid://4c2kx6uvyx8u" path="res://Scenes/health_bar.gd" id="1_78m4n"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4fqy1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m34ix"]
+texture = SubResource("CanvasTexture_4fqy1")
+modulate_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jdl8t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qay8w"]
+texture = SubResource("CanvasTexture_jdl8t")
+
+[node name="HealthBar" type="ProgressBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -553.0
+offset_bottom = -321.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_m34ix")
+theme_override_styles/fill = SubResource("StyleBoxTexture_qay8w")
+max_value = 2.0
+step = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("1_78m4n")

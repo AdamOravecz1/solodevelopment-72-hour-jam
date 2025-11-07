@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4yoru53imm73" path="res://Scenes/shop.gd" id="1_a0mxf"]
 [ext_resource type="FontFile" uid="uid://cnqm0u4n815fc" path="res://Fonts/PixelOperator.ttf" id="2_2shtd"]
 [ext_resource type="AudioStream" uid="uid://vp7xr43ocsgr" path="res://Sounds/wood-surface-single-coin-payout-4-215284.wav" id="3_io27d"]
-[ext_resource type="AudioStream" uid="uid://bfmards8y6mt2" path="res://Sounds/seagull-2-89447.wav" id="4_fdj0q"]
+[ext_resource type="AudioStream" uid="uid://dpytqdn03m71b" path="res://Sounds/seagull-city-372653.wav" id="4_fdj0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2shtd"]
 size = Vector2(86, 97)
@@ -171,7 +171,6 @@ bus = &"SFX"
 
 [node name="Morning" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fdj0q")
-volume_db = 20.0
 bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

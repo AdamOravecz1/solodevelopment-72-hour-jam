@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjavf5h1yy5us"]
+[gd_scene load_steps=12 format=3 uid="uid://bjavf5h1yy5us"]
 
 [ext_resource type="Texture2D" uid="uid://clfk18uxpm5ej" path="res://Sprites/Shark.png" id="1_03h2o"]
 [ext_resource type="Script" uid="uid://bo88evb55wk5m" path="res://Scenes/shark.gd" id="1_87kak"]
@@ -29,6 +29,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyy8k"]
 size = Vector2(31, 8)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_4fqy1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cb72u"]
+texture = SubResource("CanvasTexture_4fqy1")
+modulate_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_urn1o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6rxyh"]
+texture = SubResource("CanvasTexture_urn1o")
+
 [node name="Shark" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_87kak")
@@ -50,6 +61,19 @@ autostart = true
 [node name="Dead" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_cb72u")
 bus = &"SFX"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 11.0
+offset_bottom = -9.0
+pivot_offset = Vector2(12, 0)
+theme_override_styles/background = SubResource("StyleBoxTexture_cb72u")
+theme_override_styles/fill = SubResource("StyleBoxTexture_6rxyh")
+max_value = 4.0
+step = 1.0
+value = 1.0
+show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

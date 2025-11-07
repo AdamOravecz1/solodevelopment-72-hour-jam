@@ -116,4 +116,6 @@ stream = ExtResource("10_hptm8")
 autoplay = true
 bus = &"Music"
 
+[node name="HealthBars" type="Node2D" parent="."]
+
 [connection signal="area_entered" from="Splash" to="." method="_on_splash_area_entered"]

@@ -27,7 +27,7 @@ var points := 0
 
 var fishes := {
 	"fish": [2, 2, 2, 2],
-	"shark": [],
+	"shark": [4, 4],
 	"wheal": [],
 	"tentacle": []
 }

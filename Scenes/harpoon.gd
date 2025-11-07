@@ -35,3 +35,4 @@ func _on_area_entered(area: Area2D) -> void:
 	if "hit" in area:
 		$AudioStreamPlayer.play()
 		area.hit(damage, velocity)
+		$CollisionShape2D.queue_free()

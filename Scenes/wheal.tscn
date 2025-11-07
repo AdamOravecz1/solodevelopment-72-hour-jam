@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0konhdy2gegy"]
+[gd_scene load_steps=12 format=3 uid="uid://c0konhdy2gegy"]
 
 [ext_resource type="Texture2D" uid="uid://buusmgduxhd2g" path="res://Sprites/Whale.png" id="1_6owac"]
 [ext_resource type="Script" uid="uid://cil33nnkxbxxw" path="res://Scenes/wheal.gd" id="1_fk5te"]
@@ -29,6 +29,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_4fqy1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_640sr"]
+texture = SubResource("CanvasTexture_4fqy1")
+modulate_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_urn1o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdje8"]
+texture = SubResource("CanvasTexture_urn1o")
+
 [node name="Wheal" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_fk5te")
@@ -54,6 +65,19 @@ autostart = true
 [node name="Dead" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_640sr")
 bus = &"SFX"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 11.0
+offset_bottom = -9.0
+pivot_offset = Vector2(12, 0)
+theme_override_styles/background = SubResource("StyleBoxTexture_640sr")
+theme_override_styles/fill = SubResource("StyleBoxTexture_wdje8")
+max_value = 6.0
+step = 1.0
+value = 1.0
+show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

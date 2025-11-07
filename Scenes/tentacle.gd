@@ -5,6 +5,10 @@ var health := 4
 var speed := 20
 var side := 0
 
+func _ready() -> void:
+	$ProgressBar.modulate = Color(1, 1, 1, 0)  # Start fully transparent
+	$ProgressBar.set_as_top_level(true)
+
 func setup(pos, dir, heal):
 	if dir == -1:
 		side = dir
@@ -16,6 +20,8 @@ func setup(pos, dir, heal):
 func _physics_process(delta: float) -> void:
 	if position.y >= 0:
 		position.y -= delta * speed
+		
+	$ProgressBar.global_position = global_position + Vector2(0, -20)
 
 func hit(damage, velocity):
 	if position.y <= 0:
@@ -27,8 +33,7 @@ func hit(damage, velocity):
 		$AnimatedSprite2D.play("attack")
 		await get_tree().create_timer(0.5).timeout
 		$CollisionShape2D2.set_deferred("disabled", false)
-
-		
+	flash_health()
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -70,3 +75,10 @@ func _on_body_entered(body: Node2D) -> void:
 			cs2.call_deferred("queue_free")
 
 		body.take_damage(1)
+
+func flash_health():
+	$ProgressBar.value = health
+	var tween = create_tween()
+	
+	tween.tween_property($ProgressBar, "modulate", Color(1, 1, 1, 1), 1.0) 
+	tween.tween_property($ProgressBar, "modulate", Color(1, 1, 1, 0), 1.0)

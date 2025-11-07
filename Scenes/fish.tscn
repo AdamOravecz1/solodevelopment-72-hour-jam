@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cibc042l28ck4"]
+[gd_scene load_steps=12 format=3 uid="uid://cibc042l28ck4"]
 
 [ext_resource type="Script" uid="uid://bkmnvygskvtr7" path="res://Scenes/fish.gd" id="1_c4ibo"]
 [ext_resource type="Texture2D" uid="uid://f3lphlj1ygdg" path="res://Sprites/Fish.png" id="1_twvwo"]
@@ -29,6 +29,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_4fqy1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_urn1o"]
+texture = SubResource("CanvasTexture_4fqy1")
+modulate_color = Color(0, 0, 0, 0.313726)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_urn1o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_21uvr"]
+texture = SubResource("CanvasTexture_urn1o")
+
 [node name="Fish" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_c4ibo")
@@ -49,6 +60,19 @@ autostart = true
 [node name="Dead" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_4fqy1")
 bus = &"SFX"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 11.0
+offset_bottom = -9.0
+pivot_offset = Vector2(12, 0)
+theme_override_styles/background = SubResource("StyleBoxTexture_urn1o")
+theme_override_styles/fill = SubResource("StyleBoxTexture_21uvr")
+max_value = 2.0
+step = 1.0
+value = 1.0
+show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

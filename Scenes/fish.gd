@@ -8,6 +8,11 @@ var health: int = 3
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
+func _ready() -> void:
+	$ProgressBar.modulate = Color(1, 1, 1, 0)  # Start fully transparent
+	$ProgressBar.set_as_top_level(true)
+
+
 func setup(pos: Vector2, dir: Vector2, heal: int):
 	health = heal
 	
@@ -22,8 +27,6 @@ func setup(pos: Vector2, dir: Vector2, heal: int):
 
 
 func _physics_process(delta: float) -> void:
-
-
 	# Apply gravity for arc motion
 	velocity.y += gravity_force * delta
 
@@ -32,8 +35,10 @@ func _physics_process(delta: float) -> void:
 
 	# Rotate sprite to face current flight direction
 	rotation = velocity.angle() + deg_to_rad(180)
+	$ProgressBar.global_position = global_position + Vector2(0, -20)
 	
 func hit(damage, dir):
+	flash_health()
 	health -= damage
 	velocity += dir
 	if health <= 0:
@@ -53,3 +58,9 @@ func _on_jump_timer_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if "take_damage" in body:
 		body.take_damage(1)
+		
+func flash_health():
+	var tween = create_tween()
+	
+	tween.tween_property($ProgressBar, "modulate", Color(1, 1, 1, 1), 1.0) 
+	tween.tween_property($ProgressBar, "modulate", Color(1, 1, 1, 0), 1.0)
