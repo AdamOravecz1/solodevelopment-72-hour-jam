@@ -87,12 +87,12 @@ func _physics_process(delta: float) -> void:
 		$CanvasLayer/Pause.visible = paused
 		if in_shop:
 			get_tree().get_first_node_in_group("Shop").hide_shop() if paused else get_tree().get_first_node_in_group("Shop").show_shop()
-		
+			can_fire = false
 
 	
 	if dead and position.y <= 250:
 		position.y += delta * 10
-	if it_time and global_position.x >= 230:
+	if it_time and global_position.x >= 400:
 		print("here")
 		it_time = false
 		get_parent().get_parent().here = true

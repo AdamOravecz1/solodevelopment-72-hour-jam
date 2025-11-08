@@ -5,9 +5,12 @@ var health := 4
 var speed := 20
 var side := 0
 
+var intact := true
+
 func _ready() -> void:
 	$ProgressBar.modulate = Color(1, 1, 1, 0)  # Start fully transparent
 	$ProgressBar.set_as_top_level(true)
+	$ProgressBar.visible = get_tree().get_first_node_in_group("Pause").health_bar
 
 func setup(pos, dir, heal):
 	if dir == -1:
@@ -24,14 +27,17 @@ func _physics_process(delta: float) -> void:
 	$ProgressBar.global_position = global_position + Vector2(0, -20)
 
 func hit(damage, velocity):
-	health -= damage
-	if health <= 0:
+	if intact:
+		health -= damage
+		intact = false
+	if health <= 0 and intact:
 		get_tree().get_first_node_in_group("Ship").check_fish()
 		queue_free()
 		get_tree().get_first_node_in_group("Ship").update_points(8)
 	$AnimatedSprite2D.play("attack")
 	await get_tree().create_timer(0.5).timeout
-	$CollisionShape2D2.set_deferred("disabled", false)
+	if $CollisionShape2D2:
+		$CollisionShape2D2.set_deferred("disabled", false)
 	flash_health()
 
 
@@ -58,6 +64,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		get_tree().get_first_node_in_group("Ship").fishes["tentacle"].append(health)
 	else:
 		get_tree().get_first_node_in_group("Ship").update_points(8)
+		get_tree().get_first_node_in_group("Ship").check_fish()
 	queue_free()
 	
 func _on_body_entered(body: Node2D) -> void:

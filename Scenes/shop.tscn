@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dpytqdn03m71b" path="res://Sounds/seagull-city-372653.wav" id="4_fdj0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2shtd"]
-size = Vector2(86, 97)
+size = Vector2(157, 97)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_io27d"]
 
@@ -16,7 +16,7 @@ collision_mask = 2
 script = ExtResource("1_a0mxf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(43, -48.5)
+position = Vector2(78.5, -48.5)
 shape = SubResource("RectangleShape2D_2shtd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

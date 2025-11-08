@@ -7,6 +7,9 @@ var velocity: Vector2 = Vector2.ZERO
 
 var splashed = false
 
+var health := 100
+var intact := true
+
 func setup(pos: Vector2, dir, speed):
 	direction = dir.normalized()
 

@@ -3,6 +3,8 @@ extends Control
 @onready var music = $NinePatchRect/VBoxContainer/Music
 @onready var sfx = $NinePatchRect/VBoxContainer/Sound
 
+var health_bar = true
+
 var full_screen = false
 
 func _ready():
@@ -29,3 +31,10 @@ func _on_full_screen_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		health_bar = true
+	else:
+		health_bar = false

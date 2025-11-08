@@ -11,12 +11,16 @@ var down = false
 var attack_counter := 0
 var stagger_number := 0
 
+var intact := true
+
 func _ready() -> void:
 	stagger_number = randi_range(5, 15)
 
 func setup(pos):
 	position = pos
 	$Rumble.play()
+	
+	
 
 	
 func _physics_process(delta: float) -> void:

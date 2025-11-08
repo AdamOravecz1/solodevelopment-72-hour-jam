@@ -34,6 +34,7 @@ func _on_kill_timer_timeout():
 
 func _on_area_entered(area: Area2D) -> void:
 	if "hit" in area and (area not in already_hit):
-		$AudioStreamPlayer.play()
+		if area.health >= 0 and area.intact:
+			$AudioStreamPlayer.play()
 		area.hit(damage, velocity)
 	already_hit.append(area)

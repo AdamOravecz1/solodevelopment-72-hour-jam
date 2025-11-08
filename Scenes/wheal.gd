@@ -8,9 +8,12 @@ var health: int = 6
 var direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
+var intact := true
+
 func _ready() -> void:
 	$ProgressBar.modulate = Color(1, 1, 1, 0)  # Start fully transparent
 	$ProgressBar.set_as_top_level(true)
+	$ProgressBar.visible = get_tree().get_first_node_in_group("Pause").health_bar
 
 func setup(pos: Vector2, dir: Vector2, heal: int):
 	health = heal

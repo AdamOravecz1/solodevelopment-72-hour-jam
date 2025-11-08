@@ -83,6 +83,7 @@ func _on_body_exited(body: Node2D) -> void:
 		ship.it_time = true
 		for key in ship.fishes.keys():
 			ship.fishes[key] = []
+		ship.fishes_to_be_found = 100000000000
 			
 
 func _on_fire_rate_pressed() -> void:
