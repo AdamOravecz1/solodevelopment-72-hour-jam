@@ -1,12 +1,18 @@
 extends Area2D
 
-var health := 10
+var health := 6
 
 var speed := 30
 var start = true
 
 var up = true
 var down = false
+
+var attack_counter := 0
+var stagger_number := 0
+
+func _ready() -> void:
+	stagger_number = randi_range(5, 15)
 
 func setup(pos):
 	position = pos
@@ -82,19 +88,23 @@ func _on_attack_3_timeout() -> void:
 func execute_random_attack() -> void:
 	var roll = randf() * 100.0
 	print("Roll:", roll)
+	
+	if attack_counter >= stagger_number:
+		stagger_number = randi_range(5, 15)
+		stagger()
+		attack_counter = 0
 
-	if roll < 40.0:
+	elif roll < 40.0:
 		print("Attack1")
 		$Attack1.start()
 	elif roll < 80.0:
 		print("Attack2")
 		$Attack2.start()
-	elif roll < 90.0:
+	else:
 		print("Attack3")
 		$Attack3.start()
-	else:
-		print("Stagger")
-		stagger()
+
+	attack_counter += 1
 
 		
 func stagger():

@@ -17,6 +17,9 @@ var can_fire := true
 var paused := false
 var in_shop := true
 
+var fishes_killed := 0
+var fishes_to_be_found := 4
+
 var dead := false
 
 @export var shoot_cooldown: float = 0.6
@@ -27,7 +30,7 @@ var points := 0
 
 var fishes := {
 	"fish": [2, 2, 2, 2],
-	"shark": [4, 4],
+	"shark": [],
 	"wheal": [],
 	"tentacle": []
 }
@@ -259,7 +262,15 @@ func victory():
 	
 var day = 0
 func add_day():
+	$CanvasLayer/GoBack.visible = false
 	day += 1
 	$CanvasLayer/Day.text = "Day: " + str(day)
+	
+func check_fish():
+	fishes_killed += 1
+	print(fishes_killed, "   ", fishes_to_be_found)
+	if fishes_killed >= fishes_to_be_found:
+		fishes_killed = 0
+		$CanvasLayer/GoBack.visible = true
 
 	

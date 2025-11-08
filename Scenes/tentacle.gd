@@ -24,15 +24,14 @@ func _physics_process(delta: float) -> void:
 	$ProgressBar.global_position = global_position + Vector2(0, -20)
 
 func hit(damage, velocity):
-	if position.y <= 0:
-		$CollisionShape2D.call_deferred("queue_free")
-		health -= damage
-		if health <= 0:
-			queue_free()
-			get_tree().get_first_node_in_group("Ship").update_points(8)
-		$AnimatedSprite2D.play("attack")
-		await get_tree().create_timer(0.5).timeout
-		$CollisionShape2D2.set_deferred("disabled", false)
+	health -= damage
+	if health <= 0:
+		get_tree().get_first_node_in_group("Ship").check_fish()
+		queue_free()
+		get_tree().get_first_node_in_group("Ship").update_points(8)
+	$AnimatedSprite2D.play("attack")
+	await get_tree().create_timer(0.5).timeout
+	$CollisionShape2D2.set_deferred("disabled", false)
 	flash_health()
 
 
@@ -77,7 +76,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(1)
 
 func flash_health():
-	$ProgressBar.value = health
+	$ProgressBar.value = health - 1
 	var tween = create_tween()
 	
 	tween.tween_property($ProgressBar, "modulate", Color(1, 1, 1, 1), 1.0) 

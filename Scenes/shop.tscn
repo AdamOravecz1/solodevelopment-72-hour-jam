@@ -130,6 +130,7 @@ theme_override_font_sizes/font_size = 32
 text = "cost:5"
 
 [node name="NewDay" type="Button" parent="CanvasLayer"]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -153,6 +154,7 @@ mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -78.0
 offset_top = 1.0
 offset_right = 123.0

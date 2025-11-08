@@ -210,6 +210,25 @@ text = "Play Again"
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("5_kxdp2")]
 visible = false
 
+[node name="GoBack" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 139.0
+offset_top = 54.0
+offset_right = 571.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_6ejuo")
+theme_override_font_sizes/font_size = 16
+text = "No more fish can 
+be found today.
+Return to the 
+lighthouse and rest."
+horizontal_alignment = 2
+
 [node name="Fire" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_8aq7e")
 volume_db = -10.0

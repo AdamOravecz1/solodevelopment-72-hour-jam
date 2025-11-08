@@ -87,15 +87,16 @@ shape = SubResource("RectangleShape2D_344ge")
 position = Vector2(24, 25)
 
 [node name="Label" type="Label" parent="."]
-offset_left = -160.0
-offset_top = -14.0
-offset_right = -54.0
-offset_bottom = 18.0
+offset_left = -159.0
+offset_top = -21.0
+offset_right = -53.0
+offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("7_6bp64")
 theme_override_font_sizes/font_size = 8
 text = "Move: A, D
-Shoot: LeftMouse
-Dash: Space"
+Shoot: LMB
+Dash: Space
+Pause: P"
 
 [node name="Splash" type="Area2D" parent="."]
 
@@ -115,7 +116,5 @@ bus = &"Music"
 stream = ExtResource("10_hptm8")
 autoplay = true
 bus = &"Music"
-
-[node name="HealthBars" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="Splash" to="." method="_on_splash_area_entered"]

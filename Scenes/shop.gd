@@ -30,6 +30,7 @@ func show_shop():
 	$CanvasLayer.visible = true
 	
 func _on_body_exited(body: Node2D) -> void:
+	$CanvasLayer/NewDay.visible = true
 	ship.in_shop = false
 	$CanvasLayer.visible = false
 	ship.can_fire = true
@@ -44,42 +45,45 @@ func _on_body_exited(body: Node2D) -> void:
 			ship.fishes["fish"].append(2)
 		for i in range(2):
 			ship.fishes["shark"].append(4)
+		ship.fishes_to_be_found = 7
 	if level == 2 and spawned:
 		spawned = false
 		for i in range(3):
 			ship.fishes["fish"].append(2)
 		ship.fishes["shark"].append(4)
 		ship.fishes["wheal"].append(6)
+		ship.fishes_to_be_found = 5
 	if level == 3 and spawned:
 		spawned = false
 		for i in range(6):
 			ship.fishes["fish"].append(2)
 		ship.fishes["tentacle"].append(4)
+		ship.fishes_to_be_found = 7
 	if level == 4 and spawned:
 		spawned = false
 		for i in range(3):
 			ship.fishes["shark"].append(4)
 		for i in range(3):
 			ship.fishes["wheal"].append(6)
+		ship.fishes_to_be_found = 6
 	if level == 5 and spawned:
 		spawned = false
 		for i in range(4):
 			ship.fishes["tentacle"].append(4)
+		ship.fishes_to_be_found = 4
 	if level == 6 and spawned:
 		spawned = false
 		for i in range(3):
 			ship.fishes["tentacle"].append(4)
 		for i in range(3):
 			ship.fishes["wheal"].append(6)
+		ship.fishes_to_be_found = 6
 	if level == 7 and spawned:
 		spawned = false
 		ship.it_time = true
 		for key in ship.fishes.keys():
 			ship.fishes[key] = []
 			
-
-		
-
 
 func _on_fire_rate_pressed() -> void:
 	if fire_rate < 4 and ship.points >= fire_rate*5:
@@ -154,8 +158,6 @@ func _on_heal_pressed() -> void:
 
 
 func _on_new_day_pressed() -> void:
-	spawned
-	print("pressed")
 	if not upgraded:
 		ship.add_day()
 		spawned = true
@@ -164,6 +166,7 @@ func _on_new_day_pressed() -> void:
 		tween.tween_property($CanvasLayer/ColorRect, "modulate", Color(1, 1, 1, 1), 1.0)  # visible
 		$Morning.play()
 		tween.tween_property($CanvasLayer/ColorRect, "modulate", Color(1, 1, 1, 0), 1.0).set_delay(1.0)  # transparent
+		$CanvasLayer/NewDay.visible = false
 	upgraded = true
 
 
